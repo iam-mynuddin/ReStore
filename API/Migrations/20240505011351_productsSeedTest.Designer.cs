@@ -2,6 +2,7 @@
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20240505011351_productsSeedTest")]
+    partial class productsSeedTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
@@ -57,7 +60,7 @@ namespace API.Migrations
                             Brand = "ExampleBrand",
                             Description = "High-performance laptop with the latest technology",
                             Name = "Laptop",
-                            PictureUrl = "http://picsum.photos/200",
+                            PictureUrl = "https://example.com/laptop.jpg",
                             Price = 1500L,
                             PublicId = "Test",
                             QuantityInStock = 50,
@@ -69,7 +72,7 @@ namespace API.Migrations
                             Brand = "ExampleBrand",
                             Description = "Feature-packed smartphone with advanced camera",
                             Name = "Smartphone",
-                            PictureUrl = "http://picsum.photos/200",
+                            PictureUrl = "https://example.com/smartphone.jpg",
                             Price = 800L,
                             PublicId = "Test",
                             QuantityInStock = 100,
@@ -81,7 +84,7 @@ namespace API.Migrations
                             Brand = "ExampleBrand",
                             Description = "High-quality headphones with noise-cancellation",
                             Name = "Headphones",
-                            PictureUrl = "http://picsum.photos/200",
+                            PictureUrl = "https://example.com/headphones.jpg",
                             Price = 200L,
                             PublicId = "Test",
                             QuantityInStock = 30,
