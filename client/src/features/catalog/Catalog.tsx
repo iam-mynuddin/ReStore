@@ -1,19 +1,24 @@
-import { Product } from "../../app/models/product"
 
-interface Props {
-    /* Same like view model in asp.net*/
-    products: Product[],
-    addProduct: ()=>void    
-}
-export default function Catalog({ products,addProduct }:Props) {
+import { Product } from "../../app/models/product"
+import ProductList from "./ProductList"
+import { useEffect, useState } from "react";
+
+//interface Props {
+//    /* Same like view model in asp.net*/
+//    products: Product[],
+//    addProduct: ()=>void    
+//}
+export default function Catalog() {
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        fetch('https:localhost:7186/api/products/getproducts')
+            .then(response => response.json())
+            .then(data => setProducts(data))
+    }, []);
     return (
         <>
-            <ul>
-                {products.map((product:any) => (
-                    <li style={{ border: "solid 1px" }} key={product.id}> {product.name} -{product.price}
-                        <img src={product.pictureUrl}></img>
-                    </li>))}
-            </ul>
-            <button onClick={addProduct}> Add Product</button>
+            <ProductList  products={ products} />
+
             </>)
 }
