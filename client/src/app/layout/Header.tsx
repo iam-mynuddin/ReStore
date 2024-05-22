@@ -15,7 +15,6 @@ const rightLinks = [
 ]
 const navStyle = {
     color: "inherit",
-    color: "inherit",
     textDecoration: "none",
     typography: "h6",
     ":hover": {
