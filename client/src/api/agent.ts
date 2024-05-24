@@ -4,6 +4,7 @@ import { router } from "../app/router/Routes";
 
 const sleep=()=>new Promise(resolve=>setTimeout(resolve,300))
 axios.defaults.baseURL = "https:localhost:7186/api/";
+axios.defaults.withCredentials=true;
 
 const responseBody = (response: AxiosResponse) => response.data;
 
@@ -46,9 +47,9 @@ axios.interceptors.response.use(async response => {
 
 const requests = {
     get: (url: string) => axios.get(url).then(responseBody),
-    post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
-    put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
-    delete: (url: string) => axios.get(url).then(responseBody),
+    post: (url: string, body: object) => axios.post(url, body).then(responseBody),
+    put: (url: string, body: object) => axios.put(url, body).then(responseBody),
+    delete: (url: string) => axios.delete(url).then(responseBody),
 }
 
 const TestErrors = {
@@ -58,6 +59,12 @@ const TestErrors = {
     get500Error: () => requests.get('buggy/server-error'),
     getValidationError: () => requests.get('buggy/validation-error'),
 }
+const Basket = {
+    get: () => requests.get('basket'),
+    addItem: (producId:number,quantity=1) => requests.post(`basket?productId=${producId}&quantity=${quantity}`,{}),
+    removeItem: (producId:number,quantity=1) => requests.delete(`basket?productId=${producId}&quantity=${quantity}`),
+    
+}
 
 const Catalog = {
     list: () => requests.get('products'),
@@ -66,7 +73,8 @@ const Catalog = {
 
 const agent = {
     Catalog,
-    TestErrors
+    TestErrors,
+    Basket
 
 }
 export default agent;

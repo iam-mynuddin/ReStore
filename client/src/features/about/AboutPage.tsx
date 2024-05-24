@@ -10,7 +10,6 @@ export default function AboutPage() {
             .then(() => console.log('should not see this!'))
             .catch(error => setValidationErrors(error));
     }
-
     return (
         <Container>     
             <Typography gutterBottom variant={'h2'}>Errors for testing purposes</Typography>

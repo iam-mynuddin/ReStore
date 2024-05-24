@@ -23,6 +23,6 @@ export default function Catalog() {
     if(loading) return <LoadingComponent message="Loading products..."></LoadingComponent>
     return (
         <>
-            <ProductList  products={ products} />
+            <ProductList  products={products} />
             </>)
 }
