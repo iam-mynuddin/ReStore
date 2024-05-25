@@ -65,8 +65,7 @@ public class BasketController : MyBaseApiController
     private string GetBuyerId()
     {
         string cookie = Request.Cookies["buyerId"];
-        cookie = "3bc1b36a-7aea-498a-b53b-03c907b0bc63";
-
+        //cookie = "3bc1b36a-7aea-498a-b53b-03c907b0bc63";
         return cookie;
     }
 
