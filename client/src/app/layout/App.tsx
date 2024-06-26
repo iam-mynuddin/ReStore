@@ -8,31 +8,33 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import { getCookie } from "../util/util";
 import agent from "../../api/agent";
-import { useStoreContext } from "../../context/StoreContext";
+//import { useStoreContext } from "../../context/StoreContext";
 import LoadingComponent from "./LoadingComponent";
+import { useDispatch } from "react-redux";
+import { setBasket } from "../../features/basket/basketSlice";
+
 
 function App() {
-    const {setBasket}=useStoreContext();
+    const dispatch=useDispatch();
     const [darkMode, setDarkMode] = useState(false);
     const [loading,setLoading]=useState(true);
 
     useEffect(()=>{
-        const buyerId='test'//getCookie('buyerId');
+        const buyerId=getCookie('buyerId');//'test'
         //console.log(buyerId);
         //buyerId='2e4bc7dd-4679-4804-81fc-4762eae84ab9';
-        console.log(buyerId);
+        // console.log(buyerId);
         if(buyerId){
             agent.Basket.get()
-            .then(basket=>setBasket(basket))
+            .then(basket=>dispatch(setBasket(basket)))
             .catch(error=>console.log(error))
             .finally(()=>setLoading(false));
-
         }
         else{
             setLoading(false);
         }
         
-    },[setBasket])
+    },[dispatch])
 
 
     const palleteType=darkMode?"dark":"light"

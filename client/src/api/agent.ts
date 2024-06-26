@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { router } from "../app/router/Routes";
 
 const sleep=()=>new Promise(resolve=>setTimeout(resolve,300))
-axios.defaults.baseURL = "https:localhost:7186/api/";
+axios.defaults.baseURL = "http://localhost:5025/api/";
 axios.defaults.withCredentials=true;
 
 const responseBody = (response: AxiosResponse) => response.data;

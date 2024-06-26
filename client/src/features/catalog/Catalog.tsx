@@ -1,9 +1,9 @@
 
-import agent from "../../api/agent";
 import LoadingComponent from "../../app/layout/LoadingComponent";
-import { Product } from "../../app/models/product"
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import ProductList from "./ProductList"
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { fetchProductsAsync, productSelector } from "./catalogSlice";
 
 //interface Props {
 //    /* Same like view model in asp.net*/
@@ -11,16 +11,14 @@ import { useEffect, useState } from "react";
 //    addProduct: ()=>void    
 //}
 export default function Catalog() {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const products=useAppSelector(productSelector.selectAll);
+    const {productsLoaded,status}=useAppSelector(state=>state.catalog);
+    const dispatch=useAppDispatch();
 
     useEffect(() => {
-        agent.Catalog.list()
-        .then(products=>setProducts(products))
-        .catch(error=>console.log(error))
-        .finally(()=>setLoading(false))
-    },[]);
-    if(loading) return <LoadingComponent message="Loading products..."></LoadingComponent>
+        if(!productsLoaded) dispatch(fetchProductsAsync());
+    },[productsLoaded,dispatch]);
+    if(status.includes('pending')) return <LoadingComponent message="Loading products..."></LoadingComponent>
     return (
         <>
             <ProductList  products={products} />
